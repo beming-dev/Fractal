@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="mang.css" />
+  </head>
+  <body>
+    <canvas id="canvas" width="1000" height="1000"></canvas>
+    <script>
+      let canvas = document.getElementById("canvas");
+      let ctx = canvas.getContext("2d");
+      let width = 1000;
+      let height = 1000;
+
+      function mandelbrot(x, y, ite) {
+        for (let i = 0; i < ite; i++) {
+          x2 = x * x - y * y + 0.285;
+          y2 = 2 * x * y + 0.01;
+
+          if (x2 * x2 + y2 * y2 > 4) {
+            return false;
+          }
+
+          x = x2;
+          y = y2;
+        }
+        return true;
+      }
+
+      function draw() {
+        let ite = 50;
+        for (let a = 0; a < width; a++) {
+          for (let b = 0; b < height; b++) {
+            ra = (a - 500) / 250;
+            rb = (500 - b) / 250;
+            if (mandelbrot(ra, rb, ite)) {
+              ctx.fillStyle = "#000000";
+              ctx.fillRect(a, b, 1, 1);
+            }
+          }
+        }
+      }
+
+      draw();
+    </script>
+  </body>
+</html>
